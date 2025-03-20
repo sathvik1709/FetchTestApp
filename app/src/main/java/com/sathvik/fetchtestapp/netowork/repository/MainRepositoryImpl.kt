@@ -23,6 +23,11 @@ class MainRepositoryImpl(
         }
     }
 
+    /*
+    * Here we are doing some heavy operation such as filtering,
+    * grouping and sorting of the sublist on a large list, so its better to move
+    * this work out of main thread so it doesn't block the UI thread.
+    * */
     private suspend fun mapListContent(response: List<DataItem>): List<ListContent> =
         withContext(defaultDispatcher) {
             val listContent: MutableList<ListContent> = mutableListOf()
